@@ -91,7 +91,7 @@ def map(request):
         mapasel = request.POST.get('cidade', False)
     # Se tem um mapa selecionado chegando no POST
     if mapasel is not None:
-        # a cidade selecionada filtra o item 700 e sua localização
+        # a cidade selecionada filtra
         mapaexib = MapTest.objects.first()
         # se tem retorno desse código
         if mapaexib is not None:
@@ -101,9 +101,7 @@ def map(request):
                 zoom_start=10,
                 max_native_zoom=18,
                 max_zoom=22,
-                tiles='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-                attr='https://carto.com/attribution'
-
+                tiles=' OpenStreetMap',
             )
             # define cluster para adicionar no mapa
             marker_cluster = MarkerCluster().add_to(m)
@@ -112,14 +110,14 @@ def map(request):
             dadosmapa = MapTest.objects.all().filter(municipio='Campo Largo - PR')
             # recebe todos esses dados e separa em listas de n = 200
             dadossep = [dadosmapa[i::n] for i in range(n)]
-            #para cada lista de 200
-            for lista in dadossep:
-                print(lista)
-                #para cada poste dentro da lista de 200
-                for poste in lista:
-                    #cria um marker
+            # para cada lista de 200
+            for list in dadossep:
+                # para cada poste dentro da lista de 200
+                for poste in list:
+                    # cria um marker
                     folium.Marker(
-                        #localização do marker a partir de poste.y e poste.x, define um tooltip e vai criar um popup com os dados do poste
+                        # localização do marker a partir de poste.y e poste.x, define um tooltip e vai criar um popup
+                        # com os dados do poste
                         [poste.y, poste.x], tooltip=tooltip,
                         popup=('Localização: ', poste.localizacao, 'Tipo de ponto: ', poste.tipo_de_ponto, 'Altura: ',
                                poste.altura_m, 'Esforço_DaN: ', poste.esforco_dan)
