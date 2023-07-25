@@ -100,7 +100,7 @@ def map(request):
                 location=[mapaexib.y, mapaexib.x],
                 zoom_start=10,
                 max_native_zoom=18,
-                max_zoom=22,
+                max_zoom=20,
                 tiles=' OpenStreetMap',
             )
             # define cluster para adicionar no mapa
@@ -111,9 +111,9 @@ def map(request):
             # recebe todos esses dados e separa em listas de n = 200
             dadossep = [dadosmapa[i::n] for i in range(n)]
             # para cada lista de 200
-            for list in dadossep:
+            for listadados in dadossep:
                 # para cada poste dentro da lista de 200
-                for poste in list:
+                for poste in listadados:
                     # cria um marker
                     folium.Marker(
                         # localização do marker a partir de poste.y e poste.x, define um tooltip e vai criar um popup
