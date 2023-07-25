@@ -111,9 +111,9 @@ def map(request):
             # recebe todos esses dados e separa em listas de n = 200
             dadossep = [dadosmapa[i::n] for i in range(n)]
             # para cada lista de 200
-            for listadados in dadossep:
+            for listaDados in dadossep:
                 # para cada poste dentro da lista de 200
-                for poste in listadados:
+                for poste in listaDados:
                     # cria um marker
                     folium.Marker(
                         # localização do marker a partir de poste.y e poste.x, define um tooltip e vai criar um popup
