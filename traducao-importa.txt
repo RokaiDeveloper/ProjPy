@@ -1,0 +1,216 @@
+def importacao(request):
+    # variavel de tamanho de chunk
+    chunk_size = 1000
+
+    # recebe em um dataframe a leitura da planilha copel-1
+    df = pd.read_excel('C:/Base Decoder/copel-1.xlsx')
+    print('arquivo visualizado')
+    # cria um dataframe chamado colunas para traduzir as colunas
+    colunas = {
+        'COD_ID': 'COD_ID',
+        'DIST': 'DISTRIBUIDORA',
+        'TIP_PN': 'TIPO_DE_PONTO',
+        'POS': 'POSSE',
+        'ESTR': 'ESTRUTURA',
+        'MAT': 'MATERIAL',
+        'ESF': 'ESFORCO_DaN',
+        'ALT': 'ALTURA_m',
+        'ARE_LOC': 'LOCALIZACAO',
+        'x': 'x',
+        'y': 'y',
+        'MUN': 'MUNICIPIO'
+    }
+    print('dataframe criado')
+    # renomeia as colunas(columns) a partir do dataframe colunas.
+    df = df.rename(columns=colunas)
+    print('dataframe traduzido')
+    # AQUI ABAIXO TRADUÇÃO DOS CODIGOS DA TABELA PARA PALAVRAS
+    # dataframe da traducao
+    traducao_tipo_ponto = {
+        '0': 'Não informado',
+        'PIS': 'Ponto interno subestação',
+        'PSA': 'Ponto de saída de circuito de média tensão',
+        'PSU': 'Ponto subterrâneo',
+        'POS': 'Poste',
+        'TOR': 'Torre',
+        'PSE': 'Ponto de suporte de equipamento',
+        'PSB': 'Ponto de suporte de barramento',
+        'PEC': 'Ponto de entrada de condomínio',
+        'PMF': 'Ponto de medição de fronteira',
+        'FLT': 'Fly-tap',
+        'PFL': 'Ponto de fim de linha',
+        'CXP': 'Caixa de passagem',
+        'PON': 'Pontalete',
+        'DRV': 'Derivação'
+    }
+    # tradução aplicada pelo map
+    df['TIPO_DE_PONTO'] = df['TIPO_DE_PONTO'].map(traducao_tipo_ponto)
+
+    # dataframe da traducao
+    traducao_estrutura = {
+        '0': 'Não informado',
+        'AT': 'Autoportante',
+        'CA': 'Cabine',
+        'CI': 'Circular',
+        'CP': 'Contra poste',
+        'CD': 'Curvo duplo',
+        'CS': 'Curvo simples',
+        'DT': 'Duplo T',
+        'ES': 'Estaiada',
+        'OR': 'Ornamental',
+        'QU': 'Quadrado',
+        'RE': 'Retangular',
+        'TO': 'Torre ou Treliça',
+        'TG': 'Triangular',
+        'TL': 'Trilho',
+        'TS': 'Trilho simples',
+        'TP': 'Trusspole',
+        'TU': 'Tubular',
+        'TQ': 'Tubular - Seção quadrada'
+    }
+    # tradução aplicada pelo map
+    df['ESTRUTURA'] = df['ESTRUTURA'].map(traducao_estrutura)
+
+    # dataframe da traducao
+    traducao_material = {
+        '0': 'Não informado ou não aplicável',
+        'AC': 'Aço',
+        'CO': 'Concreto',
+        'CL': 'Concreto leve',
+        'EC': 'Em compósito',
+        'FE': 'Ferro',
+        'CQ': 'Madeira',
+        'ME': 'Madeira eucalipto',
+        'MQ': 'Madeira quadrado',
+        'MT': 'Metálica',
+        'AV': 'Alvenaria'
+    }
+    # tradução aplicada pelo map
+    df['MATERIAL'] = df['MATERIAL'].map(traducao_material)
+
+    # dataframe da traducao
+    traducao_posse = {
+        '0': 'Não informado',
+        'PD': 'Próprio distribuidor',
+        'OD': 'Outro distribuidor',
+        'T': 'Transmissor',
+        'G': 'Gerador',
+        'CS': 'Consumidor',
+        'CO': 'Cooperativa',
+        'A': 'Autorizado',
+        'O': 'Outro agente'
+    }
+    # tradução aplicada pelo map
+    df['POSSE'] = df['POSSE'].map(traducao_posse)
+
+    # dataframe da traducao
+    traducao_esforco = {
+        '0': 'Não informado ou não aplicável',
+        '1': '50 daN',
+        '2': '75 daN',
+        '3': '90 daN',
+        '4': '100 daN',
+        '5': '150 daN',
+        '6': '200 daN',
+        '7': '300 daN',
+        '8': '400 daN',
+        '9': '450 daN',
+        '10': '500 daN',
+        '11': '600 daN',
+        '12': '700 daN',
+        '13': '750 daN',
+        '14': '800 daN',
+        '15': '850 daN',
+        '16': '900 daN',
+        '17': '950 daN',
+        '18': '1000 daN',
+        '19': '1050 daN',
+        '20': '1100 daN',
+        '21': '1150 daN',
+        '22': '1200 daN',
+        '23': '1250 daN',
+        '24': '1300 daN',
+        '25': '1350 daN',
+        '26': '1400 daN',
+        '27': '1450 daN',
+        '28': '1500 daN',
+        '29': '1550 daN',
+        '30': '1600 daN',
+        '31': '1650 daN',
+        '32': '1700 daN',
+        '33': '1750 daN',
+        '34': '1800 daN'
+    }
+    # tradução aplicada pelo map
+    df['ESFORCO_DaN'] = df['ESFORCO_DaN'].map(traducao_esforco)
+
+    # dataframe da traducao
+    traducao_altura = {
+        '0': '0',
+        '1': '4,3',
+        '2': '4,5',
+        '3': '5',
+        '4': '6',
+        '5': '7',
+        '6': '7,5',
+        '7': '8',
+        '8': '8,5',
+        '9': '9',
+        '10': '10',
+        '11': '10,5',
+        '12': '11',
+        '13': '12',
+        '14': '13',
+        '15': '14',
+        '16': '15',
+        '17': '16',
+        '18': '17',
+        '19': '17,5',
+        '20': '18',
+        '21': '19',
+        '22': '20',
+        '23': '20,5',
+        '24': '21',
+        '25': '21,5',
+        '26': '22',
+        '27': '23',
+        '28': '23,5',
+        '29': '24',
+        '30': '24,6',
+        '31': '25',
+        '32': '26',
+        '33': '26,6',
+        '34': '27'
+    }
+    # tradução aplicada pelo map
+    df['ALTURA_m'] = df['ALTURA_m'].map(traducao_altura)
+
+    # dataframe da traducao
+    traducao_localizacao = {
+        '0': 'Não informado',
+        'UB': 'Urbano',
+        'NU': 'Não Urbano'
+    }
+    print('traduções feitas')
+    # tradução aplicada pelo map
+    df['LOCALIZACAO'] = df['LOCALIZACAO'].map(traducao_localizacao)
+    print('traduções passadas ao dataframe')
+
+    # Loop para iterar no dataframe em chunks de tamanho chunk_size
+    for index, row in df.iterrows():
+        MapaOfi = MapaOficial(
+            COD_ID=row['COD_ID'],
+            DISTRIBUIDORA=row['DISTRIBUIDORA'],
+            TIPO_DE_PONTO=row['TIPO_DE_PONTO'],
+            POSSE=row['POSSE'],
+            ESTRUTURA=row['ESTRUTURA'],
+            MATERIAL=row['MATERIAL'],
+            ESFORCO_DaN=row['ESFORCO_DaN'],
+            ALTURA_m=row['ALTURA_m'],
+            LOCALIZACAO=row['LOCALIZACAO'],
+            x=row['x'],
+            y=row['y'],
+            MUNICIPIO=row['MUNICIPIO']
+        )
+        MapaOfi.save()
+    return render(request, 'importacao.html', df)

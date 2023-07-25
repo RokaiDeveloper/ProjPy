@@ -1,0 +1,59 @@
+{%extends 'main.html' %}
+
+{% block content %}
+    <nav class="d-flex navbar-nav-scroll flex-fill navbar bg-light fade-in-fwd flex-wrap">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="navbar-brand mx-3">DWGeo</a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="#prod">Produto</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Planos">Planos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#Contatos">Contato</a>
+            </li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/painel/"><button class="btn btn-outline-primary shadow-none">Painel</button></a>
+            </li>
+        </ul>
+    </nav>
+    <div class="bckground p-5 mb-4 text-bg-white text-focus-in flex-wrap">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">DWGeo!</h1>
+        <p class="col-md-8 fs-4 justificatexto">Tenha acesso as informações sobre o posteamento de todas as concessionárias de energia nacionais, de forma prática e rápida, através de um mapa interativo em nossa plataforma. Engenheiros eletricistas, integradores fotovoltaicos, nós oferecemos a maior base de dados do setor elétrico para seus projetos!</p>
+        <button class="btn btn-success btn-lg " type="button">Saiba Mais</button>
+      </div>
+    </div>
+    <div class="d-flex container-fluid justify-content-center flex-wrap">
+        <div id="prod" class="col-md-6 p-3 fade-in-fwd jmb">
+            <div class="container-fluid py-5 col-md-12">
+                <h5 class="fs-3">O que você encontra na DWGeo</h5>
+                <p class="fs-6 justificatexto">Seja para consultas de rede, projetos elétricos e de compartilhamento de estruturas, GPON ou FTTx, nosso objetivo é disponibilizar mapas técnicos dos postes de energia com indicação de altura, material, esforços, cabeamentos, tensão e afins. Um compilado de informações para acelerar seu desenvolvimento.</p>
+            </div>
+        </div>
+        <div id="Planos" class="col-md-6 p-3 jmb fade-in-fwd">
+            <div class="container-fluid py-5 col-md-12">
+                <h5 class="fs-3">Planos disponíveis</h5>
+                <p class="fs-6 justificatexto">Assim como cada projeto possui suas características únicas, nossas soluções também são. Possuímos um pacote básico com o posteamento georreferenciado para planejamento de redes, onde você terá acesso a malha de postes de todo território nacional por apenas R$89,98/mês. Para informações mais detalhadas e mapas personalizados entre em contato conosco.</p>
+            </div>
+        </div>
+    </div>
+    <a href="//wa.me/5546999066674" class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+    </a>
+     <div class="d-flex container-fluid justify-content-center py-5 flex-wrap">
+        <div id="Contatos" class="col-md-12 p-3 jmc fade-in-fwd">
+            <div class="container-fluid py-5 text-center col-md-12">
+                <h5 class="fs-3">Contato</h5>
+                <p class="fs-6 justificatexto text-center"><i class="fa-brands fa-whatsapp"></i> Whatsapp: 46 9 9906 6674 ou pelo <a href="//wa.me/5546999066674">link</a><br><i class="fa-brands fa-instagram"></i> Instagram: @DWGeoProject ou pelo <a href="https://www.instagram.com/">link</a></p>
+            </div>
+        </div>
+     </div>
+{% endblock %}

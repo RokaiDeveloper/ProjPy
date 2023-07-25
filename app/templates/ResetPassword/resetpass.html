@@ -1,0 +1,32 @@
+{%extends 'main.html' %}
+
+{% block content %}
+<!-- HEADER -->
+    <nav class="d-flex navbar-nav-scroll navbar flex-fill fade-in-fwd jmc flex-wrap">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="navbar-brand mx-3">DWGeo</a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills">
+        </ul>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link mx-1" href="/painel/"><button class="btn btn-danger shadow-none">Voltar</button></a>
+            </li>
+        </ul>
+    </nav>
+<!-- HEADER -->
+<div class="d-flex container-fluid justify-content-center flex-wrap">
+    <div class="col-lg-4 my-5 p-3 bg-light jmb fade-in-fwd">
+        <div class="container-fluid my-5">
+            <p>Esqueceu sua senha? Coloque o Email cadastrado abaixo</p>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" name="Enviar Email">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

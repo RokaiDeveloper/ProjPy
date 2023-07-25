@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% block content%}
+    {% if request.user.is_authenticated%}
+    <!-- HEADER -->
+    <nav class="d-flex navbar-nav-scroll navbar flex-fill fade-in-fwd jmc flex-wrap">
+        <ul class="nav align-items-center">
+            <li class="nav-item m-3">
+               <a class="navbar-brand">DWGeo</a>
+            </li>
+            <li class="nav-item">
+                <span>Seja bem-vindo {{ request.user.first_name }}</span>
+            </li>
+        </ul>
+        <ul class="nav align-items-center">
+            <li class="nav-item">
+                <a class="nav-link" href="/perfil/"><i class="fa-solid fa-user"></i> Perfil</a>
+            </li>
+            {% if perms.auth.Acess_map %}
+            <li class="nav-item">
+                <a class="nav-link" href="/map/"><button class="btn btn-outline-primary shadow-none">Mapas</button></a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/logouts/"><button class="btn btn-outline-danger shadow-none">Sair</button></a>
+            </li>
+        </ul>
+    </nav>
+<!-- HEADER -->
+    {% else %}
+    {% endif%}
+{% endblock%}

@@ -1,0 +1,54 @@
+{%extends 'main.html' %}
+
+{% block content %}
+<!-- HEADER -->
+    <nav class="d-flex navbar-nav-scroll navbar flex-fill fade-in-fwd jmc flex-wrap">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="navbar-brand mx-3">DWGeo</a>
+            </li>
+        </ul>
+        <ul class="nav nav-pills">
+        </ul>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link mx-1" href="/home/"><button class="btn btn-danger shadow-none">Voltar</button></a>
+            </li>
+        </ul>
+    </nav>
+<!-- HEADER -->
+
+<div class="d-flex container-fluid justify-content-center flex-wrap">
+    <div class="col-lg-4 my-5 p-3 bg-light jmb fade-in-fwd">
+        <div class="container-fluid my-5">
+            {% if msg %}
+                <div class="p-3 m-3 alert alert-dismissible fade show {{class}}" role="alert">
+                   {{msg}}
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+            <form name="formPainel" id="formUsers" method="post" action="/dologin/">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Usuário:</label>
+                    <input class="form-control shadow-none" type="text" name="user" id="user" placeholder="Usuário:">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Senha:</label>
+                    <input class="form-control shadow-none" type="password" name="password" id="password" placeholder="senha:">
+                </div>
+                <button type="submit" class="btn btn-primary" value="logar">Logar</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4 my-5 p-3 bg-dark">
+        <div class="container-fluid my-5 text-bg-dark">
+            <h5 class="fw-bold fs-3 justificatexto">Seja Bem-vindo!</h5>
+            <br>
+            <br>
+            <br>
+            <p class="fs-6 justificatexto">Não está conseguindo acessar sua conta?<br><a href="/reset_password/">Esqueci minha senha</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
