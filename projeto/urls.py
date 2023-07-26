@@ -18,6 +18,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from app.views import home, painel, dologin, dashboard, logouts, create, store, map, perfil
 urlpatterns = [
+    path("__debug__/", include("debug_toolbar.urls")),
     path('admin/', admin.site.urls),
     path('', home),
     path('home/', home),
