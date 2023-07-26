@@ -74,44 +74,44 @@ def map(request):
     lista = list(mapas)
     # declarações das variaveis vazias para utilização posterior
     # mapa selecionado
-    mapasel = None
+    mapaSelecionado = None
     # se o mapa está sendo exibido
-    mapaexib = None
+    mapaExibido = None
     # variavel m para receber o mapa pelo plugin folium
-    m = None
+    mapaApresentado = None
     # variavel de dados que pega demais dados!
-    dadosmapa = None
+    dadosExtraMapa = None
     # variavel do cluster de markers
-    marker_cluster = 0
+    markerCluster = 0
     # variavel do tamanho do chunk
-    n = 200
+    tamanhoChunk = 200
     # se recebe um requesT POST(DO FORMULARIO/FILTRO FRONT)
     if request.method == 'POST':
         # Verifica qual a cidade selecionada na cidade
-        mapasel = request.POST.get('cidade', False)
+        mapaSelecionado = request.POST.get('cidade', False)
     # Se tem um mapa selecionado chegando no POST
-    if mapasel is not None:
+    if mapaSelecionado is not None:
         # a cidade selecionada filtra
-        mapaexib = MapTest.objects.first()
+        mapaExibido = MapTest.objects.first()
         # se tem retorno desse código
-        if mapaexib is not None:
+        if mapaExibido is not None:
             # variavel m abre um mapa com as informações do mapa que deve ser exibida
-            m = folium.Map(
-                location=[mapaexib.y, mapaexib.x],
+            mapaApresentado = folium.Map(
+                location=[mapaExibido.y, mapaExibido.x],
                 zoom_start=10,
                 max_native_zoom=18,
                 max_zoom=20,
                 tiles=' OpenStreetMap',
             )
             # define cluster para adicionar no mapa
-            marker_cluster = MarkerCluster().add_to(m)
+            markerCluster = MarkerCluster().add_to(mapaApresentado)
             tooltip = "Info"
             # filtra os dados com as variveis de quant. de registros e de localização, etc
-            dadosmapa = MapTest.objects.all().filter(municipio='Campo Largo - PR')
+            dadosExtraMapa = MapTest.objects.all().filter(municipio='Campo Largo - PR')
             # recebe todos esses dados e separa em listas de n = 200
-            dadossep = [dadosmapa[i::n] for i in range(n)]
+            dadosSeparados = [dadosExtraMapa[i::tamanhoChunk] for i in range(tamanhoChunk)]
             # para cada lista de 200
-            for listaDados in dadossep:
+            for listaDados in dadosSeparados:
                 # para cada poste dentro da lista de 200
                 for poste in listaDados:
                     # cria um marker
@@ -122,21 +122,21 @@ def map(request):
                         popup=('Localização: ', poste.localizacao, 'Tipo de ponto: ', poste.tipo_de_ponto, 'Altura: ',
                                poste.altura_m, 'Esforço_DaN: ', poste.esforco_dan)
                         # adiciona ao mapa exibido
-                    ).add_to(marker_cluster)
+                    ).add_to(markerCluster)
         # botão fullscren
         fullscreen = Fullscreen(position='topright', title='Tela Cheia', title_cancel='Minimizar',
-                                force_separate_button=True).add_to(m)
+                                force_separate_button=True).add_to(mapaApresentado)
         # ferramenta de medida
         measure = MeasureControl(position='topleft', primary_length_unit='meters',
-                                 secondary_length_unit='kilometers').add_to(m)
+                                 secondary_length_unit='kilometers').add_to(mapaApresentado)
         # mapa é repassado como representação em html/javascript o que permite a visualização
-        m = m._repr_html_()
+        mapaApresentado = mapaApresentado._repr_html_()
     # contexto e dados repassado ao front
     context = {
         "mapas": lista,
-        "mapasel": mapasel,
-        "mapa": m,
-        "dadosmapa": mapaexib
+        "mapaSelecionado": mapaSelecionado,
+        "mapa": mapaApresentado,
+        "dadosMapa": mapaExibido
     }
 
     return render(request, 'dashboard/map.html', context)
