@@ -20,6 +20,14 @@
     </nav>
 <!-- HEADER -->
 <div class="d-flex container-fluid flex-wrap justify-content-center">
+    <div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoicm9rYWlkZXYiLCJhIjoiY2xrcGZ1NmV3MHRwaTNrcHJtejJycWl5aCJ9.QTM2ODTANNmhaS3AV8wdgQ';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11'
+  });
+</script>
 
 </div>
     {% endif %}
