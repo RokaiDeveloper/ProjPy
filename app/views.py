@@ -153,3 +153,8 @@ def perfil(request):
         "mapas": lista
     }
     return render(request, 'dashboard/perfil.html', context)
+
+
+@login_required(login_url='/painel/')
+def newmap(request):
+    return render(request, 'dashboard/newmap.html')

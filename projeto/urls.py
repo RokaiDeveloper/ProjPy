@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from app.views import home, painel, dologin, dashboard, logouts, create, store, map, perfil
+from app.views import home, painel, dologin, dashboard, logouts, create, store, map, perfil, newmap
 urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('admin/', admin.site.urls),
     path('', home),
+    path('', newmap),
     path('home/', home),
     path('painel/', painel),
     path('dologin/', dologin),
