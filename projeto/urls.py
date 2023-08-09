@@ -21,7 +21,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path('admin/', admin.site.urls),
     path('', home),
-    path('', newmap),
+    path('dashboard/', newmap),
     path('home/', home),
     path('painel/', painel),
     path('dologin/', dologin),
