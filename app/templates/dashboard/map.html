@@ -48,14 +48,20 @@
             {% endif%}
         </div>
     </div>
-    {% if mapaSelecionado %}
-    <div class="row h-75 w-100">
-        <div class="col-lg-12">
-            {{ mapa | safe }}
+    <div class="d-flex container-fluid flex-wrap justify-content-center">
+        <div id="map" class="p-4 m-5 row h-100 w-100">
+            <div class="col-lg-12 p-4 m-5"></div>
+            <div class="col-lg-12 p-4 m-5"></div>
+            <div class="col-lg-12 p-4 m-5"></div>
         </div>
+        <script>
+          mapboxgl.accessToken = 'pk.eyJ1Ijoicm9rYWlkZXYiLCJhIjoiY2xrcGZ1NmV3MHRwaTNrcHJtejJycWl5aCJ9.QTM2ODTANNmhaS3AV8wdgQ';
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11'
+          });
+        </script>
     </div>
-    {% else %}
-    {% endif %}
 </div>
     {% else %}
     {% endif %}

@@ -75,68 +75,10 @@ def map(request):
     # declarações das variaveis vazias para utilização posterior
     # mapa selecionado
     mapaSelecionado = None
-    # se o mapa está sendo exibido
-    mapaExibido = None
-    # variavel m para receber o mapa pelo plugin folium
-    mapaApresentado = None
-    # variavel de dados que pega demais dados!
-    dadosExtraMapa = None
-    # variavel do cluster de markers
-    markerCluster = 0
-    # variavel do tamanho do chunk
-    tamanhoChunk = 200
-    # se recebe um requesT POST(DO FORMULARIO/FILTRO FRONT)
-    if request.method == 'POST':
-        # Verifica qual a cidade selecionada na cidade
-        mapaSelecionado = request.POST.get('cidade', False)
-    # Se tem um mapa selecionado chegando no POST
-    if mapaSelecionado is not None:
-        # a cidade selecionada filtra
-        mapaExibido = MapTest.objects.first()
-        # se tem retorno desse código
-        if mapaExibido is not None:
-            # variavel m abre um mapa com as informações do mapa que deve ser exibida
-            mapaApresentado = folium.Map(
-                location=[mapaExibido.y, mapaExibido.x],
-                zoom_start=10,
-                max_native_zoom=18,
-                max_zoom=20,
-                tiles=' OpenStreetMap',
-            )
-            # define cluster para adicionar no mapa
-            markerCluster = MarkerCluster().add_to(mapaApresentado)
-            tooltip = "Info"
-            # filtra os dados com as variveis de quant. de registros e de localização, etc
-            dadosExtraMapa = MapTest.objects.all().filter(municipio='Campo Largo - PR')
-            # recebe todos esses dados e separa em listas de n = 200
-            dadosSeparados = [dadosExtraMapa[i::tamanhoChunk] for i in range(tamanhoChunk)]
-            # para cada lista de 200
-            for listaDados in dadosSeparados:
-                # para cada poste dentro da lista de 200
-                for poste in listaDados:
-                    # cria um marker
-                    folium.Marker(
-                        # localização do marker a partir de poste.y e poste.x, define um tooltip e vai criar um popup
-                        # com os dados do poste
-                        [poste.y, poste.x], tooltip=tooltip,
-                        popup=('Localização: ', poste.localizacao, 'Tipo de ponto: ', poste.tipo_de_ponto, 'Altura: ',
-                               poste.altura_m, 'Esforço_DaN: ', poste.esforco_dan)
-                        # adiciona ao mapa exibido
-                    ).add_to(markerCluster)
-        # botão fullscren
-        fullscreen = Fullscreen(position='topright', title='Tela Cheia', title_cancel='Minimizar',
-                                force_separate_button=True).add_to(mapaApresentado)
-        # ferramenta de medida
-        measure = MeasureControl(position='topleft', primary_length_unit='meters',
-                                 secondary_length_unit='kilometers').add_to(mapaApresentado)
-        # mapa é repassado como representação em html/javascript o que permite a visualização
-        mapaApresentado = mapaApresentado._repr_html_()
-    # contexto e dados repassado ao front
+
     context = {
         "mapas": lista,
-        "mapaSelecionado": mapaSelecionado,
-        "mapa": mapaApresentado,
-        "dadosMapa": mapaExibido
+        "mapaSelecionado": mapaSelecionado
     }
 
     return render(request, 'dashboard/map.html', context)
@@ -154,7 +96,3 @@ def perfil(request):
     }
     return render(request, 'dashboard/perfil.html', context)
 
-
-@login_required(login_url='/painel/')
-def newmap(request):
-    return render(request, 'dashboard/newmap.html')
